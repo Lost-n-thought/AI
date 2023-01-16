@@ -51,4 +51,4 @@ class NQueenProblem:
 
 
 
-NQueenProblem(4).Solution()
+NQueenProblem(5).Solution()

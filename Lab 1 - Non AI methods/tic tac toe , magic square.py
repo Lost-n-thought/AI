@@ -16,7 +16,7 @@ print_board(tic_tac_toe)
 
 player_won = ""
 
-#check if sum of any 3 postion is 15
+#check if sum of any 3 position is 15
 for i in range (9):
     for j in range(9):
         for k in range(9):
