@@ -50,5 +50,6 @@ class NQueenProblem:
         print("")
 
 
+n = int(input("input n for N queen problem -"))
 
-NQueenProblem(5).Solution()
+NQueenProblem(n).Solution()

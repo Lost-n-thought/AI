@@ -1,3 +1,6 @@
+import time
+import os
+
 print("Enter a odd no to for that no sided magic square")
 n = int(input("odd no - "))
 
@@ -8,6 +11,10 @@ n = int(input("odd no - "))
 class magic_square:
     
     def _next_position(self):
+        #For no delay comment below line
+        time.sleep(1)
+        os.system('clear')  #in seconds
+        self.printm()
         y_n = (self.y-1) % n
         x_n = (self.x+1) % n
         if(self.magic_square[y_n][x_n] is None):
@@ -35,8 +42,9 @@ class magic_square:
             for i in row:
                 print(str(i),end = "\t")
             print("")
+        print("")
 
 
 
 
-magic_square(n).printm()
+magic_square(n)
