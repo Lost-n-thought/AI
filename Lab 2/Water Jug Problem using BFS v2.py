@@ -2,7 +2,7 @@
 
 
 class Node:
-    def __init__(self, Value : list = [0 , 0], parent = None, depth = 0 , left_max = 4 , right_max = 3):
+    def __init__(self ,left_max , right_max , Value : list = [0 , 0], parent = None, depth = 0 ):
         self.Value = Value
         self.parent = parent
         self.depth = depth
@@ -13,38 +13,38 @@ class Node:
         
     def left_fill(self):
         if(self.Value[0] != self.left_max):
-            return Node([self.left_max , self.Value[1]] , self , self.depth + 1)
+            return Node(self.left_max , self.right_max ,[self.left_max , self.Value[1]] , self , self.depth + 1)
         else:
             return None
     def right_fill(self):
         if(self.Value[1] != self.right_max):
-            return Node([self.Value[0] , self.right_max] , self , self.depth + 1)
+            return Node(self.left_max , self.right_max ,[self.Value[0] , self.right_max] , self , self.depth + 1)
         else:
             return None
     def left_empty(self):
         if(self.Value[0] != 0):
-            return Node([0 , self.Value[1]] , self , self.depth + 1)
+            return Node(self.left_max , self.right_max ,[0 , self.Value[1]] , self , self.depth + 1)
         else:
             return None
     def right_empty(self):
         if(self.Value[1] != 0):
-            return Node([self.Value[0] , 0] , self , self.depth + 1)
+            return Node(self.left_max , self.right_max ,[self.Value[0] , 0] , self , self.depth + 1)
         else:
             return None
     def left_to_right(self):
         if(self.Value[0] != 0 and self.Value[1] != self.right_max):
             if(self.Value[0] + self.Value[1] <= self.right_max):
-                return Node([0 , self.Value[0] + self.Value[1]] , self , self.depth + 1)
+                return Node(self.left_max , self.right_max ,[0 , self.Value[0] + self.Value[1]] , self , self.depth + 1)
             else:
-                return Node([self.Value[0] - (self.right_max - self.Value[1]) , self.right_max] , self , self.depth + 1)
+                return Node(self.left_max , self.right_max ,[self.Value[0] - (self.right_max - self.Value[1]) , self.right_max] , self , self.depth + 1)
         else:
             return None
     def right_to_left(self):
         if(self.Value[1] != 0 and self.Value[0] != self.left_max):
             if(self.Value[0] + self.Value[1] <= self.left_max):
-                return Node([self.Value[0] + self.Value[1] , 0] , self , self.depth + 1)
+                return Node(self.left_max , self.right_max ,[self.Value[0] + self.Value[1] , 0] , self , self.depth + 1)
             else:
-                return Node([self.left_max , self.Value[1] - (self.left_max - self.Value[0])] , self , self.depth + 1)
+                return Node(self.left_max , self.right_max ,[self.left_max , self.Value[1] - (self.left_max - self.Value[0])] , self , self.depth + 1)
         else:
             return None
         
@@ -60,7 +60,8 @@ class Node:
 
 
 # implement BFS generation of tree
-def BFS(start : Node, accepted_states : list):
+def BFS(accepted_states : list , left_max, right_max):
+    start = Node(left_max , right_max ,[0 , 0] , None , 0)
     queue = [start]
     already_visited = []
     
@@ -93,10 +94,10 @@ def print_path(result : Node):
 
 
 accepted_states = [[2 , 0] , [2, 1] , [2, 2] , [2, 3]]
-right_max = 3
-left_max = 4
+right_max = 4
+left_max = 7
 
-result = BFS(Node([0 , 0] , None , 0 , left_max , right_max) , accepted_states)
+result = BFS(accepted_states, left_max,right_max)
 
 print("\nresult" ,result.Value , result.depth)
 # printing solution path
