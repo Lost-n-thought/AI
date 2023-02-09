@@ -93,9 +93,9 @@ def print_path(result : Node):
 
 
 
-accepted_states = [[2 , 0] , [2, 1] , [2, 2] , [2, 3]]
 right_max = 4
 left_max = 7
+accepted_states = [[2 , i] for i in range (right_max +1)]
 
 result = BFS(accepted_states, left_max,right_max)
 
