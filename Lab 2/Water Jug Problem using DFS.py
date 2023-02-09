@@ -60,7 +60,7 @@ class Node:
 
 
 # implement DFS generation of tree
-def DFS_recursion(accepted_states , left_max , right_max):
+def DFS_loop(accepted_states , left_max , right_max):
     visited = []
     root = Node(left_max , right_max)
     stack = [root]
@@ -97,7 +97,7 @@ right_max = 4
 left_max = 7
 accepted_states = [[2 , i] for i in range (right_max +1)]
 
-result = DFS_recursion(accepted_states, left_max,right_max)
+result = DFS_loop(accepted_states, left_max,right_max)
 
 print("\nresult" ,result.Value , result.depth)
 # printing solution path
