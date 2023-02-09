@@ -59,25 +59,25 @@ class Node:
         return self.children
 
 
-# implement BFS generation of tree
-def BFS(accepted_states : list , left_max, right_max):
-    start = Node(left_max , right_max ,[0 , 0] , None , 0)
-    queue = [start]
-    already_visited = []
+# implement DFS generation of tree
+def DFS_recursion(accepted_states , left_max , right_max):
+    visited = []
+    root = Node(left_max , right_max)
+    stack = [root]
     
-    while(len(queue) != 0):
-        current = queue.pop(0)
-        
-        if(current.Value in already_visited):
-            continue
+    while(len(stack) > 0):
+        current_node = stack.pop()
+        visited.append(current_node.Value)
+        if(current_node.Value in accepted_states):
+            return current_node
         else:
-            already_visited.append(current.Value)
-            
-        if(current.Value in accepted_states):
-            return current
-        
-        queue.extend(current.generate_children())
-    return None
+            children = current_node.generate_children()
+            for child in children:
+                if(child.Value not in visited):
+                    stack.append(child)
+    
+    
+
 
 
 def print_path(result : Node):
@@ -93,11 +93,11 @@ def print_path(result : Node):
 
 
 
-right_max = 3
-left_max = 4
+right_max = 4
+left_max = 7
 accepted_states = [[2 , i] for i in range (right_max +1)]
 
-result = BFS(accepted_states, left_max,right_max)
+result = DFS_recursion(accepted_states, left_max,right_max)
 
 print("\nresult" ,result.Value , result.depth)
 # printing solution path
