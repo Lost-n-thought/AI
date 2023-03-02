@@ -60,21 +60,17 @@ class Node:
 
 
 # implement DFS generation of tree
-def DFS_loop(accepted_states , left_max , right_max):
-    visited = []
+def DFS_depth_limited_loop(accepted_states , left_max , right_max , max_depth):
     root = Node(left_max , right_max)
     stack = [root]
     
     while(len(stack) > 0):
         current_node = stack.pop()
-        visited.append(current_node.Value)
         if(current_node.Value in accepted_states):
             return current_node
-        else:
+        elif(current_node.depth < max_depth):
             children = current_node.generate_children()
-            for child in children:
-                if(child.Value not in visited):
-                    stack.append(child)
+            stack = stack + children
     
     
 
@@ -93,11 +89,11 @@ def print_path(result : Node):
 
 
 
-right_max = 4
-left_max = 7
+left_max = 4
+right_max = 3
 accepted_states = [[2 , i] for i in range (right_max +1)]
 
-result = DFS_loop(accepted_states, left_max,right_max)
+result = DFS_depth_limited_loop(accepted_states, left_max,right_max , 20)
 
 print("\nresult" ,result.Value , result.depth)
 # printing solution path

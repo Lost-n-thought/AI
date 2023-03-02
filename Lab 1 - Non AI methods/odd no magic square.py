@@ -13,7 +13,7 @@ class magic_square:
     def _next_position(self):
         #For no delay comment below line
         time.sleep(1)
-        os.system('clear')  #in seconds
+        os.system('cls')  #in seconds
         self.printm()
         y_n = (self.y-1) % n
         x_n = (self.x+1) % n
