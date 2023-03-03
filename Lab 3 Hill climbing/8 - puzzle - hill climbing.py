@@ -83,16 +83,22 @@ def hill_climbing(start_state):
         current.print_board()
         print("score = " , current.score , "\n------------------\n")
         
+        current.children = current.children_produce()
+        stack += current.children
+        
         if(current.score == 9):
             return current
-        else:
-            current.children = current.children_produce()
-            stack += current.children
+        elif(len(stack) == 0):
+            print(" xxxxxxxxxxxxxx Plataea encountered xxxxxxxxxxxxxx")
+    
+
 
 
 # result = Node_8_puzzle_hill_climbing(start_state).print_board()
 # print(Node_8_puzzle_hill_climbing(start_state).score)
-start_state = [" ", 3, 4, 1, 2, 5, 8, 7, 6]
+start_state_peak = [" ", 3, 4, 1, 2, 5, 8, 7, 6]
+start_state_plataea = [1, 3, 4, 8, " ", 2, 7, 6, 5]
 
-result = hill_climbing(start_state)
+result = hill_climbing(start_state_peak)
+result = hill_climbing(start_state_plataea)
 
