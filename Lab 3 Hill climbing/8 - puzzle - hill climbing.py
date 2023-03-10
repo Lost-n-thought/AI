@@ -93,14 +93,17 @@ def hill_climbing(start_state):
         if(current.score == 8):
             return current
         elif(len(current.children) + len(stack) == 0):
-            print(" xxxxxxxxxxxxxx Plataea or local maxima encountered xxxxxxxxxxxxxx")
-            for i in current.children_produce_no_check():
+            print(" xxxxxxxxxxxxxx local maxima encountered xxxxxxxxxxxxxx")
+            for i in current.children_produce():
                 i.print_board()
-                print("score = " , i.score , "\n------------------\n")
-                
-            break;
-    
-
+                print("score = " , i.score , "\n------------------\n")    
+            break
+        elif (current.score == current.children_produce()[0].score ):
+            print(" xxxxxxxxxxxxxx Plateau encountered xxxxxxxxxxxxxx")
+            for i in current.children_produce():
+                i.print_board()
+                print("score = " , i.score , "\n------------------\n")    
+            break
 
 
 # result = Node_8_puzzle_hill_climbing(start_state).print_board()
