@@ -1,10 +1,6 @@
 
 
-def print_board(state):
-    for i in range(0, 9):
-        print(state[i] , " " , end = "")
-        if(i % 3 == 2):
-            print('\n')
+
 
 #solving 8 puzzle using hill climbing
 class Node_8_puzzle_hill_climbing:
@@ -25,7 +21,7 @@ class Node_8_puzzle_hill_climbing:
     def calculate_score(self):
         score = 0
         for i in range(0, 9):
-            if(self.state[i] == self.goal_state[i]):
+            if(self.state[i] == self.goal_state[i] and self.state[i] != " "):
                 score += 1
         return score
 
@@ -72,7 +68,15 @@ class Node_8_puzzle_hill_climbing:
         max_score = max(children , key = lambda x : x.score).score
         self.children = [x for x in children if x.score == max_score and max_score >= self.score]
         return self.children
-
+    
+    def children_produce_no_check(self):
+        children = []
+        children.append(self.up())
+        children.append(self.down())
+        children.append(self.left())
+        children.append(self.right())
+        children = [x for x in children if x is not None]
+        return children
 
 def hill_climbing(start_state): 
     root = Node_8_puzzle_hill_climbing(start_state)   
@@ -86,10 +90,15 @@ def hill_climbing(start_state):
         current.children = current.children_produce()
         stack += current.children
         
-        if(current.score == 9):
+        if(current.score == 8):
             return current
-        elif(len(stack) == 0):
-            print(" xxxxxxxxxxxxxx Plataea encountered xxxxxxxxxxxxxx")
+        elif(len(current.children) + len(stack) == 0):
+            print(" xxxxxxxxxxxxxx Plataea or local maxima encountered xxxxxxxxxxxxxx")
+            for i in current.children_produce_no_check():
+                i.print_board()
+                print("score = " , i.score , "\n------------------\n")
+                
+            break;
     
 
 
@@ -97,8 +106,8 @@ def hill_climbing(start_state):
 # result = Node_8_puzzle_hill_climbing(start_state).print_board()
 # print(Node_8_puzzle_hill_climbing(start_state).score)
 start_state_peak = [" ", 3, 4, 1, 2, 5, 8, 7, 6]
-start_state_plataea = [1, 3, 4, 8, " ", 2, 7, 6, 5]
+start_state_plataea = [1, 3, 4, " ", 2, 6, 8, 7, 5]
 
-result = hill_climbing(start_state_peak)
+#result = hill_climbing(start_state_peak)
 result = hill_climbing(start_state_plataea)
 
